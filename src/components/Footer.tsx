@@ -139,7 +139,9 @@ function Footer() {
                 </span>
               </a>
 
-              <a
+              
+            </div>
+            <a
                 href="tel:+252610000000"
                 className="group inline-flex items-center gap-3 text-sm text-white/75 transition-colors duration-300 hover:text-[#10d9d1]"
               >
@@ -150,7 +152,6 @@ function Footer() {
                   <span className="absolute -bottom-1 left-0 h-[1px] w-0 bg-[#10d9d1] transition-all duration-300 group-hover:w-full" />
                 </span>
               </a>
-            </div>
           </div>
         </div>
 

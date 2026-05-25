@@ -5,9 +5,17 @@ import {
   HeartHandshake,
   ShieldCheck,
   UsersRound,
+  type LucideIcon,
 } from "lucide-react";
 
-const programs = [
+type Program = {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  path: string;
+};
+
+const programs: Program[] = [
   {
     icon: GraduationCap,
     title: "Skills & Vocational Training",
@@ -60,58 +68,30 @@ function FeaturesProgram() {
 
         {/* Cards */}
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {programs.map((program, index) => {
+          {programs.map((program) => {
             const Icon = program.icon;
 
             return (
               <Link
                 key={program.title}
                 to={program.path}
-                className={`group flex min-h-[310px] flex-col justify-between border border-[#00475e]/10 p-6 transition-colors duration-300 hover:border-[#10d9d1] ${
-                  index === 0
-                    ? "bg-[#00475e] text-white"
-                    : "bg-white text-[#00475e] hover:bg-[#00475e]"
-                }`}
+                className="group flex min-h-[310px] flex-col justify-between border border-[#00475e]/10 bg-white p-6 text-[#00475e] transition-colors duration-300 hover:border-[#10d9d1] hover:bg-[#00475e]"
               >
                 <div>
-                  <div
-                    className={`mb-6 flex h-12 w-12 items-center justify-center ${
-                      index === 0
-                        ? "bg-[#10d9d1] text-[#00475e]"
-                        : "bg-[#10d9d1]/15 text-[#00475e] group-hover:bg-[#10d9d1] group-hover:text-[#00475e]"
-                    }`}
-                  >
+                  <div className="mb-6 flex h-12 w-12 items-center justify-center bg-[#10d9d1]/15 text-[#00475e] transition-colors duration-300 group-hover:bg-[#10d9d1] group-hover:text-[#00475e]">
                     <Icon size={24} />
                   </div>
 
-                  <h3
-                    className={`text-xl font-semibold leading-snug ${
-                      index === 0
-                        ? "text-white"
-                        : "text-[#00475e] group-hover:text-white"
-                    }`}
-                  >
+                  <h3 className="text-xl font-semibold leading-snug text-[#00475e] transition-colors duration-300 group-hover:text-white">
                     {program.title}
                   </h3>
 
-                  <p
-                    className={`mt-4 text-sm leading-7 ${
-                      index === 0
-                        ? "text-white/80"
-                        : "text-[#00475e]/75 group-hover:text-white/80"
-                    }`}
-                  >
+                  <p className="mt-4 text-sm leading-7 text-[#00475e]/75 transition-colors duration-300 group-hover:text-white/80">
                     {program.description}
                   </p>
                 </div>
 
-                <div
-                  className={`mt-8 inline-flex items-center gap-2 text-sm font-semibold ${
-                    index === 0
-                      ? "text-[#10d9d1]"
-                      : "text-[#00475e] group-hover:text-[#10d9d1]"
-                  }`}
-                >
+                <div className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#00475e] transition-colors duration-300 group-hover:text-[#10d9d1]">
                   Learn More
                   <ArrowUpRight size={17} />
                 </div>
