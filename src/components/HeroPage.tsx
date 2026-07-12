@@ -23,35 +23,35 @@ import "swiper/css/pagination";
 const heroSlides = [
   {
     image: hero,
-    alt: "Elman Peace community support",
-    title: "Cultivating Peace,",
+    alt: "Elman Peace supporting peacebuilding and human rights in Somalia",
+    title: "Building Peace,",
     highlight: "Empowering Somalia",
     description:
-      "Join us in our mission to transform crisis into vocational resilience and human dignity.",
+      "Protecting human rights, strengthening communities, and creating opportunities for a peaceful and inclusive Somalia.",
   },
   {
     image: drawing,
-    alt: "Vocational skills and creative training",
-    title: "Building Hope,",
-    highlight: "Through Opportunity",
+    alt: "Young people participating in Elman Peace rehabilitation activities",
+    title: "Drop the Gun,",
+    highlight: "Pick Up the Pen",
     description:
-      "Creating safe pathways for people to learn, grow, recover, and build stronger futures.",
+      "Supporting children and young people to disengage from violence, heal from conflict, and return to their communities with new opportunities.",
   },
   {
     image: girls,
-    alt: "Girls empowerment program",
-    title: "Empowering Women,",
-    highlight: "Strengthening Communities",
+    alt: "Girls participating in an Elman Peace empowerment program",
+    title: "Protecting Women,",
+    highlight: "Empowering Girls",
     description:
-      "Supporting dignity, protection, leadership, and local agency for lasting peace.",
+      "Supporting survivors, investing in girls’ education, and helping women and young leaders participate meaningfully in Somalia’s future.",
   },
   {
     image: mecanic,
-    alt: "Mechanic vocational training",
-    title: "Skills for Peace,",
+    alt: "Young person receiving vocational skills training at Elman Peace",
+    title: "Skills for Dignity,",
     highlight: "Work for the Future",
     description:
-      "Vocational training helps young people gain confidence, independence, and opportunity.",
+      "Providing free technical training, practical skills, and pathways to employment and sustainable livelihoods for youth and women.",
   },
 ];
 

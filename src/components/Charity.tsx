@@ -1,76 +1,48 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import { FiArrowUpRight } from "react-icons/fi";
 
-const stats = [
-  {
-    number: "12+",
-    label: "Years of Community Impact",
-  },
-  {
-    number: "69+",
-    label: "Monthly Support Programs",
-  },
-  {
-    number: "3+",
-    label: "Global & Local Partners",
-  },
-  {
-    number: "93+",
-    label: "Projects Completed",
-  },
-];
+import charityImage from "../assets/Mecanic.jpg";
 
 function Charity() {
   return (
-    <section className="relative w-full overflow-hidden bg-[#00475e] py-16 text-white sm:py-20 lg:py-24 mt-20">
-     
+    <section className="relative my-20 min-h-[560px] w-full overflow-hidden bg-[#00475e] sm:min-h-[620px] lg:min-h-[680px]">
+      {/* Background Image */}
+      <img
+        src={charityImage}
+        alt="Elman Peace community program in Somalia"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
 
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-10">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          {/* Left Content */}
-          <div>
-            <span className="inline-flex bg-[#10d9d1]/15 px-3 py-1 text-xs font-semibold text-[#10d9d1]">
-              Organization Statistics
-            </span>
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-[#002f3f]/65" />
 
-            <h2 className="mt-5 max-w-xl text-[30px] font-semibold leading-tight tracking-tight text-white sm:text-[38px] lg:text-[44px]">
-              Advancing Human Development Across Somalia
-            </h2>
+      {/* Left Gradient for Text Readability */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#002f3f]/95 via-[#002f3f]/55 to-transparent" />
 
-            <p className="mt-5 max-w-xl text-sm leading-7 text-white/80 sm:text-base">
-              Our work focuses on strengthening communities through education,
-              skills training, peacebuilding, protection, and locally led
-              development programs that create lasting change.
-            </p>
+      {/* Content */}
+      <div className="container relative z-10 mx-auto flex min-h-[560px] items-center px-4 sm:min-h-[620px] sm:px-6 lg:min-h-[680px] lg:px-10">
+        <div className="max-w-2xl py-16">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#10d9d1]">
+            Support Elman Peace
+          </p>
 
-            <Link
-              to="/donate"
-              className="mt-8 inline-flex items-center gap-2 bg-white px-6 py-3 text-sm font-semibold text-[#00475e] transition-colors duration-300 hover:bg-[#10d9d1]"
-            >
-              Donate Now
-              <span className="flex h-6 w-6 items-center justify-center bg-[#10d9d1] text-[#00475e]">
-                <ArrowUpRight size={16} />
-              </span>
-            </Link>
-          </div>
+          <h2 className="mt-5 text-[32px] font-semibold leading-[1.15] tracking-tight text-white sm:text-[42px] lg:text-[52px]">
+            Help Build a Peaceful and Inclusive Future for Somalia
+          </h2>
 
-          {/* Stats */}
-          <div className="grid grid-cols-2 gap-4 sm:gap-5">
-            {stats.map((stat) => (
-              <div
-                key={stat.label}
-                className="flex min-h-[120px] flex-col items-center justify-center bg-[#10d9d1]/25 px-4 py-6 text-center transition-colors duration-300 hover:bg-[#10d9d1]"
-              >
-                <h3 className="text-[30px] font-semibold leading-none text-white sm:text-[36px]">
-                  {stat.number}
-                </h3>
+          <p className="mt-6 max-w-xl text-sm leading-7 text-white/85 sm:text-base lg:text-lg lg:leading-8">
+            Your support helps Elman Peace protect human rights, empower women
+            and young people, provide vocational training, and create safer,
+            stronger communities across Somalia.
+          </p>
 
-                <p className="mt-3 text-xs font-medium leading-5 text-white/85 sm:text-sm">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
+          <Link
+            to="/donate"
+            className="mt-8 inline-flex items-center gap-3 bg-[#10d9d1] px-7 py-4 text-sm font-semibold text-[#00475e] transition-colors duration-300 hover:bg-white"
+          >
+            Donate Now
+            <FiArrowUpRight size={18} />
+          </Link>
         </div>
       </div>
     </section>
