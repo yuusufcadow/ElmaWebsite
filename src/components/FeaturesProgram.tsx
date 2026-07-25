@@ -1,6 +1,4 @@
-import { Link } from "react-router-dom";
 import {
-  ArrowUpRight,
   GraduationCap,
   HeartHandshake,
   ShieldCheck,
@@ -8,11 +6,18 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
+import drawing from "../assets/Drawing.jpg";
+import gallery from "../assets/gallery-pic.jpg";
+import girls from "../assets/Girls.jpg";
+import hero from "../assets/heroimage.png";
+import mecanic from "../assets/Mecanic.jpg";
+
 type Program = {
   icon: LucideIcon;
   title: string;
   description: string;
-  path: string;
+  image: string;
+  imageAlt: string;
 };
 
 const programs: Program[] = [
@@ -20,94 +25,113 @@ const programs: Program[] = [
     icon: GraduationCap,
     title: "Skills & Vocational Training",
     description:
-      "Equipping young people and vulnerable communities with practical skills that support employment, confidence, and independence.",
-    path: "/programs",
+      "Practical technical training that helps young people build confidence, find work, and create sustainable livelihoods.",
+    image: mecanic,
+    imageAlt: "Young people taking part in vocational skills training",
   },
   {
     icon: ShieldCheck,
     title: "Protection & Human Rights",
     description:
-      "Supporting dignity, safety, and access to justice for people affected by conflict, displacement, and social exclusion.",
-    path: "/programs",
+      "Protecting children, survivors, and communities affected by conflict, violence, displacement, and exclusion.",
+    image: drawing,
+    imageAlt: "Young people participating in protection activities",
   },
   {
     icon: HeartHandshake,
     title: "Peacebuilding & Recovery",
     description:
-      "Helping communities rebuild trust, strengthen local agency, and create peaceful pathways for long-term stability.",
-    path: "/programs",
+      "Supporting communities to rebuild trust, recover from conflict, and create peaceful pathways for the future.",
+    image: gallery,
+    imageAlt: "Community members participating in peacebuilding activities",
   },
   {
     icon: UsersRound,
     title: "Women & Youth Empowerment",
     description:
-      "Investing in leadership, education, wellbeing, and opportunity for women, girls, and young people across Somalia.",
-    path: "/programs",
+      "Expanding education, leadership, wellbeing, and economic opportunities for women, girls, and young people.",
+    image: girls,
+    imageAlt: "Girls taking part in an Elman Peace empowerment program",
   },
 ];
 
 function FeaturesProgram() {
   return (
-    <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-10">
-        {/* Header */}
-        <div className="mx-auto max-w-[760px] text-center">
-          <span className="inline-flex bg-[#10d9d1]/15 px-3 py-1 text-xs font-semibold text-[#00475e]">
-            Featured Programs
-          </span>
+    <section
+      className="relative w-full overflow-hidden bg-[#00475e] py-14 sm:py-16 lg:py-20"
+      style={{
+        backgroundImage: `url(${hero})`,
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+      }}
+    >
+      {/* Background overlay */}
+      <div className="absolute inset-0 bg-[#00475e]/80" />
 
-          <h2 className="mt-4 text-[30px] font-semibold leading-tight tracking-tight text-[#00475e] sm:text-[38px] lg:text-[44px]">
-            Programs That Support Human Development in Somalia
+      <div className="absolute inset-0 bg-gradient-to-r from-[#00475e]/95 via-[#00767a]/80 to-[#10d9d1]/50" />
+
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-10">
+        {/* Header */}
+        <div className="mb-8 max-w-2xl sm:mb-10">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#10d9d1]">
+            Our programs
+          </p>
+
+          <h2 className="mt-2 text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
+            Creating Opportunity and Lasting Peace
           </h2>
 
-          <p className="mt-5 text-sm leading-7 text-[#00475e]/75 sm:text-base">
-            Our work focuses on practical, community-led solutions that protect
-            dignity, expand opportunity, and help people build stronger futures.
+          <p className="mt-4 max-w-xl text-sm leading-7 text-white/80 sm:text-base">
+            Community-led programs protecting dignity, expanding opportunity,
+            and building safer futures across Somalia.
           </p>
         </div>
 
-        {/* Cards */}
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Program cards */}
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {programs.map((program) => {
             const Icon = program.icon;
 
             return (
-              <Link
+              <article
                 key={program.title}
-                to={program.path}
-                className="group flex min-h-[310px] flex-col justify-between border border-[#00475e]/10 bg-white p-6 text-[#00475e] transition-colors duration-300 hover:border-[#10d9d1] hover:bg-[#00475e]"
+                className="flex h-full flex-col overflow-hidden bg-white"
               >
-                <div>
-                  <div className="mb-6 flex h-12 w-12 items-center justify-center bg-[#10d9d1]/15 text-[#00475e] transition-colors duration-300 group-hover:bg-[#10d9d1] group-hover:text-[#00475e]">
-                    <Icon size={24} />
-                  </div>
+                {/* Program image */}
+                <div className="relative h-[190px] overflow-hidden sm:h-[210px] lg:h-[190px] xl:h-[220px]">
+                  <img
+                    src={program.image}
+                    alt={program.imageAlt}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-full object-cover"
+                  />
 
-                  <h3 className="text-xl font-semibold leading-snug text-[#00475e] transition-colors duration-300 group-hover:text-white">
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#00475e]/45 via-transparent to-transparent" />
+
+                  <div className="absolute bottom-0 right-0 flex h-12 w-12 items-center justify-center bg-[#10d9d1] text-[#00475e]">
+                    <Icon size={23} strokeWidth={2} />
+                  </div>
+                </div>
+
+                {/* Program content */}
+                <div className="flex flex-1 flex-col p-5 sm:p-6">
+                  <h3 className="text-lg font-semibold leading-snug text-[#00475e]">
                     {program.title}
                   </h3>
 
-                  <p className="mt-4 text-sm leading-7 text-[#00475e]/75 transition-colors duration-300 group-hover:text-white/80">
+                  <p className="mt-3 text-sm leading-6 text-[#00475e]/70">
                     {program.description}
                   </p>
-                </div>
 
-                <div className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#00475e] transition-colors duration-300 group-hover:text-[#10d9d1]">
-                  Learn More
-                  <ArrowUpRight size={17} />
+                  <div className="mt-auto pt-6">
+                    <div className="h-px w-10 bg-[#10d9d1]" />
+                  </div>
                 </div>
-              </Link>
+              </article>
             );
           })}
-        </div>
-
-        {/* Bottom CTA */}
-        <div className="mt-12 flex justify-end">
-          <Link
-            to="/programs"
-            className="inline-flex bg-[#10d9d1] px-7 py-3 text-sm font-semibold tracking-wide text-[#00475e] transition-colors duration-300 hover:bg-[#00475e] hover:text-white"
-          >
-            View All Programs
-          </Link>
         </div>
       </div>
     </section>

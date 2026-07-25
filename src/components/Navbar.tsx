@@ -255,7 +255,7 @@ export default function Navbar() {
 
           {/* Desktop donate button */}
           <Link
-            to="/donate"
+            to="https://www.every.org/elman-peace-and-human-rights-centre-so"
             className="hidden items-center justify-center bg-[#10d9d1] px-7 py-3 text-sm font-semibold tracking-wide text-[#00475e] transition-colors duration-300 hover:bg-[#00475e] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10d9d1] focus-visible:ring-offset-2 lg:inline-flex"
           >
             Donate

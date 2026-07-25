@@ -10,6 +10,9 @@ import FrontLinesActivities from "./pages/FrontLinesActivities"
 import EqualVoices from "./pages/EqualVoices"
 import ShePage from "./pages/ShePage"
 import Volunter from "./pages/Volunter"
+import Partnership from "./pages/Partnership"
+import Press from "./pages/Press"
+import Contacts from "./pages/Contacts"
 
 
 function App() {
@@ -27,6 +30,9 @@ function App() {
         <Route path="/equal-voices" element={<EqualVoices />} />
         <Route path='/she-will' element={<ShePage />} />
         <Route path='/volunteer' element={<Volunter />} />
+        <Route path='/partnership' element={<Partnership />} />
+        <Route path='/press' element={<Press />} />
+        <Route path='/contact' element={<Contacts />} />
       </Routes>
     </div>
   )

@@ -1,108 +1,143 @@
-import { useEffect, useRef } from "react";
+import { Play } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 function CaptureVideo() {
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
-  const videoSectionRef = useRef<HTMLElement | null>(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const sendVimeoCommand = (method: "play" | "pause") => {
+    iframeRef.current?.contentWindow?.postMessage(
+      JSON.stringify({ method }),
+      "https://player.vimeo.com",
+    );
+  };
+
+  const handlePlay = () => {
+    setIsPlaying(true);
+    sendVimeoCommand("play");
+  };
 
   useEffect(() => {
-    const pauseVideo = () => {
-      iframeRef.current?.contentWindow?.postMessage(
-        JSON.stringify({
-          method: "pause",
-        }),
-        "https://player.vimeo.com"
-      );
+    const section = sectionRef.current;
+    const iframe = iframeRef.current;
+
+    if (!section || !iframe) return;
+
+    const subscribeToVimeoEvents = () => {
+      ["play", "pause", "finish"].forEach((eventName) => {
+        iframe.contentWindow?.postMessage(
+          JSON.stringify({
+            method: "addEventListener",
+            value: eventName,
+          }),
+          "https://player.vimeo.com",
+        );
+      });
     };
 
-    const currentSection = videoSectionRef.current;
+    const handleVimeoMessage = (event: MessageEvent) => {
+      if (event.origin !== "https://player.vimeo.com") return;
 
-    if (!currentSection) return;
+      try {
+        const data =
+          typeof event.data === "string"
+            ? JSON.parse(event.data)
+            : event.data;
+
+        if (data.event === "play") {
+          setIsPlaying(true);
+        }
+
+        if (data.event === "pause" || data.event === "finish") {
+          setIsPlaying(false);
+        }
+      } catch {
+        // Ignore unrelated Vimeo messages.
+      }
+    };
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) {
-          pauseVideo();
+          sendVimeoCommand("pause");
+          setIsPlaying(false);
         }
       },
       {
-        threshold: 0.25,
-      }
+        threshold: 0.2,
+      },
     );
 
-    observer.observe(currentSection);
+    iframe.addEventListener("load", subscribeToVimeoEvents);
+    window.addEventListener("message", handleVimeoMessage);
+    observer.observe(section);
 
     return () => {
+      iframe.removeEventListener("load", subscribeToVimeoEvents);
+      window.removeEventListener("message", handleVimeoMessage);
       observer.disconnect();
     };
   }, []);
 
   return (
     <section
-      ref={videoSectionRef}
-      className="w-full border-t border-neutral-200 bg-white py-16 sm:py-20 lg:py-28"
+      ref={sectionRef}
+      className="bg-white py-12 sm:py-16 lg:py-20"
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-10">
-        {/* Section Header */}
-        <div className="mb-10 max-w-4xl sm:mb-12 lg:mb-16">
-          <div className="flex items-center gap-3">
-            <span className="h-px w-10 bg-[#10d9d1]" />
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative h-[360px] w-full overflow-hidden bg-black sm:h-[460px] lg:h-[580px]">
+          <iframe
+            ref={iframeRef}
+            id="hdi-video"
+            src="https://player.vimeo.com/video/719652908?title=0&byline=0&portrait=0&badge=0&autopause=0&api=1&player_id=hdi-video"
+            title="Human Development Index"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowFullScreen
+            loading="lazy"
+            className="absolute inset-0 h-full w-full border-0"
+          />
 
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#008f8a] sm:text-sm">
-              Human Development
-            </p>
-          </div>
+          <div
+            className={`absolute inset-0 z-10 transition-all duration-500 ${
+              isPlaying
+                ? "pointer-events-none invisible opacity-0"
+                : "visible opacity-100"
+            }`}
+          >
+            {/* Brand gradient */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#006f6b]/90 via-[#009f9a]/65 to-black/55" />
 
-          <h2 className="mt-5 max-w-3xl text-4xl font-semibold leading-[1.08] tracking-[-0.03em] text-black sm:text-5xl lg:text-6xl">
-            Human Development Index{" "}
-            <span className="text-[#009f9a]">(HDI)</span>
-          </h2>
-        </div>
+            <div className="absolute inset-0 bg-black/10" />
 
-        {/* Content */}
-        <div className="grid items-stretch gap-10 lg:grid-cols-[0.75fr_1.45fr] lg:gap-14 xl:gap-20">
-          {/* Text */}
-          <div className="flex flex-col justify-between border-l border-neutral-300 pl-5 sm:pl-7 lg:min-h-[560px]">
-            <div>
-              <p className="max-w-xl text-lg font-medium leading-8 text-black sm:text-xl sm:leading-9">
-                The Human Development Index looks beyond income alone. It
-                measures progress through health, education, and living
-                standards.
-              </p>
-
-              <div className="mt-7 space-y-6 text-base leading-8 text-neutral-700 sm:text-lg sm:leading-9">
-                <p>
-                  It provides a broader understanding of whether people have
-                  the opportunities, knowledge, resources, and conditions they
-                  need to live fulfilling lives.
+            {/* Center content */}
+            <div className="relative flex h-full w-full items-center justify-center px-5 text-center sm:px-8">
+              <div className="flex max-w-2xl flex-col items-center">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/80 sm:text-sm">
+                  Human Development
                 </p>
 
-                <p>
-                  For communities in Somalia, this approach connects directly
-                  to dignity, education, economic opportunity, practical skills,
-                  and long-term wellbeing.
+                <h2 className="mt-3 text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
+                  Human Development Index
+                </h2>
+
+                <p className="mt-4 max-w-xl text-sm leading-6 text-white/85 sm:text-base sm:leading-7">
+                  Measuring progress through health, education, and quality of
+                  life.
                 </p>
+
+                <button
+                  type="button"
+                  onClick={handlePlay}
+                  aria-label="Play Human Development Index video"
+                  className="mt-7 flex h-16 w-16 items-center justify-center rounded-full border border-white/70 bg-white text-[#009f9a] transition duration-300 hover:scale-105 hover:bg-[#10d9d1] hover:text-white sm:h-20 sm:w-20"
+                >
+                  <Play className="ml-1 h-7 w-7 fill-current sm:h-8 sm:w-8" />
+                </button>
+
+               
               </div>
             </div>
-
-            <div className="mt-10 border-t border-neutral-200 pt-6">
-              <p className="text-sm font-medium uppercase tracking-[0.16em] text-neutral-500">
-                Health · Education · Living standards
-              </p>
-            </div>
-          </div>
-
-          {/* Video */}
-          <div className="relative h-[360px] w-full overflow-hidden bg-black sm:h-[480px] lg:h-[560px] xl:h-[620px]">
-            <iframe
-              ref={iframeRef}
-              id="hdi-video"
-              src="https://player.vimeo.com/video/719652908?title=0&byline=0&portrait=0&badge=0&autopause=0&api=1&player_id=hdi-video"
-              title="Human Development Index HDI"
-              allow="autoplay; fullscreen; picture-in-picture"
-              allowFullScreen
-              loading="lazy"
-              className="absolute inset-0 h-full w-full border-0"
-            />
           </div>
         </div>
       </div>

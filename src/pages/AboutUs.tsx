@@ -1,5 +1,6 @@
-import AboutElman from "../components/AboutElman"
+
 import AboutHero from "../components/AboutUs/AboutHero"
+import AboutUSPage from "../components/AboutUs/AboutUSPage"
 import LearnMore from "../components/AboutUs/LearnMore"
 import OurStory from "../components/AboutUs/OurStory"
 import VisionMission from "../components/AboutUs/VisionMission"
@@ -10,7 +11,7 @@ function AboutUs() {
   return (
     <div>
         <AboutHero/>
-        <AboutElman/>
+        <AboutUSPage/>
         <VisionMission/>
         <OurStory/>
         <LearnMore/>

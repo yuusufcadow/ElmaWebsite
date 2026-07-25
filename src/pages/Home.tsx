@@ -14,9 +14,10 @@ function Home() {
       <HeroPage />
       <AboutElman/>
       <OurResilence/>
+      <VisionMission/>
       <CaptureVideo/>
-      <FeaturesProgram/>
-       <VisionMission/>
+      
+        <FeaturesProgram/>
       <Charity/>
       <Footer/>
     </div>
